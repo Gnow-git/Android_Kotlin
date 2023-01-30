@@ -37,5 +37,33 @@
         android:textSize="16sp"
         android:textStyle="bold"    />
 
+    <TextView
+        android:id="@+id/tv_minute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00"
+        android:textSize="45sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_second"
+        tools:layout_editor_absoluteX="74dp" />
+
+    <TextView
+        android:id="@+id/tv_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=":00"
+        android:textSize="45sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_refresh"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="165dp" />
+
+    <TextView
+        android:id="@+id/tv_millisecond"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=".00"
+        android:textSize="30sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_second"
+        tools:layout_editor_absoluteX="267dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
