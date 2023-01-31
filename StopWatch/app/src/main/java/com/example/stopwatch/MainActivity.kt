@@ -9,7 +9,8 @@ import android.widget.TextView
 // 클릭 이벤트 처리 인터페이스
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    val isRunning = false   // 실행 여부 확인용 변수 false로 초기화
+    var isRunning = false   // 실행 여부 확인용 변수 false로 초기화
+
 
      private lateinit var btn_start: Button
      private lateinit var btn_refresh: Button
