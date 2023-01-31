@@ -85,7 +85,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun pause() {
+        // 텍스트 속성 변경
+        btn_start.text = "시작"
+        btn_start.setBackgroundColor(getColor(R.color.blue))
 
+        isRunning = false   // 멈춤 상태로 전환
+        timer?.cancel()     // 타이머 멈추기
     }
 
     private fun refresh() {
