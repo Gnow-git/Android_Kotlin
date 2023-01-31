@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import java.util.*
+import kotlin.concurrent.timer
 
 // 클릭 이벤트 처리 인터페이스
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    var isRunning = false   // 실행 여부 확인용 변수 false로 초기화
-
+    var isRunning = false       // 실행 여부 확인용 변수 false로 초기화
+    var timer : Timer? = null   // timer 변수 추가
+    var time = 0                // time 변수 추가
 
      private lateinit var btn_start: Button
      private lateinit var btn_refresh: Button
@@ -53,6 +56,32 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun start() {
 
+        btn_start.text = "일시정지"
+        btn_start.setBackgroundColor(getColor(R.color.red))
+        isRunning = true
+
+        // 스톱워치를 시작하는 로직
+        timer = timer(period = 10) {
+
+            time++  // 10밀리초 단위 타이머
+
+            // 시간 계산
+            val milli_second = time % 100
+            val second = (time % 6000) / 100
+            val minute = time / 6000
+
+            runOnUiThread {     // UI 스레드 생성
+                if (isRunning){ // UI 업데이트 조건 설정
+                    // 밀리초
+                    tv_millisecond.text = if (milli_second < 10)
+                                          ".0${milli_second}" else ".${milli_second}"
+                    // 초
+                    tv_second.text = if (second < 10) ":0${second}" else ":${second}"
+                    // 분
+                    tv_minute.text = "${minute}"
+                }
+            };
+        }
     }
 
     private fun pause() {
