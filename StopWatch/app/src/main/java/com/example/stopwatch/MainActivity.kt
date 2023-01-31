@@ -94,6 +94,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun refresh() {
+        timer?.cancel()     // 백그라운드 타이머 멈추기
+        
+        btn_start.text = "시작"
+        btn_start.setBackgroundColor(getColor(R.color.blue))
+        isRunning = false   // 멈춤 상태로 변경
 
+        // 타이머 초기화
+        time = 0
+        tv_millisecond.text = ".00"
+        tv_second.text = ":00"
+        tv_minute.text = "00"
     }
 }
