@@ -1,4 +1,4 @@
-package com.example.emptyactivity
+package com.example.qrcodereader
 
 import org.junit.Test
 

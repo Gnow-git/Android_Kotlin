@@ -1,4 +1,4 @@
-package com.example.emptyactivity
+package com.example.qrcodereader
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,12 +6,12 @@ import androidx.camera.core.CameraSelector
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
-import com.example.emptyactivity.databinding.ActivityMainBinding
+import com.example.qrcodereader.databinding.ActivityMainBinding
 import com.google.common.util.concurrent.ListenableFuture
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityMainBinding  // 바인딩 변수 선언
+    private lateinit var binding : ActivityMainBinding // 바인딩 변수 선언
     private lateinit var cameraProviderFuture:
             ListenableFuture<ProcessCameraProvider>
     // ListenableFuture 에 태스트가 제대로 끝났을 때 동작 지정

@@ -1,4 +1,4 @@
-package com.example.emptyactivity
+package com.example.qrcodereader
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
