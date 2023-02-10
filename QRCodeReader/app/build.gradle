@@ -53,5 +53,5 @@ dependencies {
     implementation "androidx.camera:camera-view:1.2.1"
 
     // ML kit 라이브러리
-    implementation "com.google.mlkit:barcode-scanning-common:17.0.0"
+    implementation "com.google.mlkit:barcode-scanning:16.1.1"
 }
