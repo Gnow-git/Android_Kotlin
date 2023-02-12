@@ -6,7 +6,8 @@ import androidx.camera.core.ImageProxy
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
 
-class QRCodeAnalyzer : ImageAnalysis.Analyzer {
+class QRCodeAnalyzer(val onDetectListener: OnDetectListener) :
+    ImageAnalysis.Analyzer {
 
     // 바코드 스캐닝 객체 생성
     private val scanner = BarcodeScanning.getClient()
@@ -20,6 +21,9 @@ class QRCodeAnalyzer : ImageAnalysis.Analyzer {
             scanner.process(image)  // 이미지 분석, 결과 3가지
                 .addOnSuccessListener { qrCodes ->
                         // 리스너가 들어갈 자리
+                    for (qrCode in qrCodes) {
+                        onDetectListener.onDetect(qrCode.rawValue ?: "")
+                    }
                 }
                 .addOnFailureListener {
                     it.printStackTrace()    // 실패 시 에러를 로그에 프린트
