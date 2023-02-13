@@ -50,7 +50,7 @@ dependencies {
     // CameraX의 생명 주기 관련 라이브러리
     implementation "androidx.camera:camera-lifecycle:$camerax_version"
     // CameraX의 뷰 관련 라이브러리
-    implementation "androidx.camera:camera-view:1.2.1"
+    implementation "androidx.camera:camera-view:1.0.0-alpha24"
 
     // ML kit 라이브러리
     implementation "com.google.mlkit:barcode-scanning:16.1.1"
