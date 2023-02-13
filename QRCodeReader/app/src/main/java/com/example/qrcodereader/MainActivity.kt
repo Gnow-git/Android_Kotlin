@@ -7,11 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import com.example.qrcodereader.databinding.ActivityMainBinding
 import com.google.common.util.concurrent.ListenableFuture
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
 
@@ -66,6 +69,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun getImageAnalysis() : ImageAnalysis {
+
+        val cameraExecutor: ExecutorService = Executors.newSingleThreadExecutor()
+        val imageAnalysis = ImageAnalysis.Builder().build()
+
+        imageAnalysis.setAnalyzer(cameraExecutor,
+            QRCodeAnalyzer(object : OnDetectListener {
+                override fun onDetect(msg: String) {
+                    Toast.makeText(this@MainActivity, "${msg}",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }))
+
+        return imageAnalysis
+    }
+
     // 미리보기와 이미지 분석 시작
     fun startCamera() {
         cameraProviderFuture = ProcessCameraProvider.getInstance(this)  // 객체의 참조값 할당
@@ -74,10 +93,12 @@ class MainActivity : AppCompatActivity() {
             val cameraProvider = cameraProviderFuture.get()
 
             val preview = getPreview()  // 미리보기 객체 가져오기
+            val imageAnalysis = getImageAnalysis()  // ImageAnalysis 클래스의 객체 생성
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
             // 후면 카메라 선택(DEFAULT_BACK_CAMERA)
 
-            cameraProvider.bindToLifecycle(this, cameraSelector, preview)
+            cameraProvider.bindToLifecycle(this, cameraSelector, preview,
+            imageAnalysis)
             // 미리보기 기능 선택(preview)
 
         }, ContextCompat.getMainExecutor(this))
@@ -90,7 +111,7 @@ class MainActivity : AppCompatActivity() {
         // Preview 객체에 SurfaceProvider 설정 → Preview 에 Surface 제공
         // Surface → 화면에 보여지는 픽셀들이 모여 있는 객체
         preview.setSurfaceProvider(binding.barcodePreview.getSurfaceProvider())
-        
+
         return preview
     }
 }
