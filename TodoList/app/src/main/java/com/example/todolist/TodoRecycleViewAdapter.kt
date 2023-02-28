@@ -24,7 +24,7 @@ class TodoRecycleViewAdapter(private val todoList : ArrayList<ToDoEntity>)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         TODO("Not yet implemented")
     }
-    
+
     override fun getItemCount(): Int {
         TODO("Not yet implemented")
     }
