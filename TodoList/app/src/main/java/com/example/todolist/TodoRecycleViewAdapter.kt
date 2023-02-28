@@ -1,5 +1,6 @@
 package com.example.todolist
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.databinding.ItemTodoBinding
@@ -18,14 +19,37 @@ class TodoRecycleViewAdapter(private val todoList : ArrayList<ToDoEntity>)
             }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        TODO("Not yet implemented")
+        // item_todo.xml 뷰 바인딩 객체 생성
+        val binding: ItemTodoBinding =
+            ItemTodoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MyViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val todoData = todoList[position]
+        // 중요도에 따라 색상을 변경
+        when (todoData.importance) {
+            1 -> {
+                holder.tv_importance.setBackgroundResource(R.color.red)
+            }
+
+            2 -> {
+                holder.tv_importance.setBackgroundResource(R.color.yellow)
+            }
+
+            3 -> {
+                holder.tv_importance.setBackgroundResource(R.color.green)
+            }
+        }
+
+        // 중요도에 따라 중요도 텍스트(1, 2, 3)  변경
+        holder.tv_importance.text = todoData.importance.toString()
+        // 할 일의 제목 변경
+        holder.tv_title.text = todoData.title
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        // 리사이클러뷰 아이템 개수는 할 일 리스트 크기
+        return todoList.size
     }
 }
