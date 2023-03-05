@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.databinding.ItemTodoBinding
 import com.example.todolist.db.ToDoEntity
 
-class TodoRecycleViewAdapter(private val todoList : ArrayList<ToDoEntity>)
+class TodoRecycleViewAdapter(private val todoList : ArrayList<ToDoEntity>,private val listener: OnItemLongClickListener)
     : RecyclerView.Adapter<TodoRecycleViewAdapter.MyViewHolder>() {
 
         inner class MyViewHolder(binding : ItemTodoBinding) :
