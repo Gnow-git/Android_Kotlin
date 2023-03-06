@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.databinding.ItemTodoBinding
 import com.example.todolist.db.ToDoEntity
 
-class TodoRecycleViewAdapter(private val todoList : ArrayList<ToDoEntity>,private val listener: OnItemLongClickListener)
+class TodoRecycleViewAdapter(private val todoList : ArrayList<ToDoEntity>,
+                             private val listener: OnItemLongClickListener)
     : RecyclerView.Adapter<TodoRecycleViewAdapter.MyViewHolder>() {
 
         inner class MyViewHolder(binding : ItemTodoBinding) :
@@ -46,6 +47,12 @@ class TodoRecycleViewAdapter(private val todoList : ArrayList<ToDoEntity>,privat
         holder.tv_importance.text = todoData.importance.toString()
         // 할 일의 제목 변경
         holder.tv_title.text = todoData.title
+
+        // 할 일이 길게 클릭되었을 때 리스너 함수 실행
+        holder.root.setOnClickListener {
+            listener.onLongClick(position)
+            false
+        }
     }
 
     override fun getItemCount(): Int {
