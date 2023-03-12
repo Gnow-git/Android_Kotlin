@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         val locationManager = getSystemService(LOCATION_SERVICE) as
                 LocationManager
 
-        return (locationManager.isProviderEnabled((LocationManager.GPS_PROVIDER)
+        return (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
     }
 
