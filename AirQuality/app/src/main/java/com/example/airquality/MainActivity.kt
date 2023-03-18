@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
@@ -29,12 +30,32 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var getGPSPermissionLauncher: ActivityResultLauncher<Intent>
 
+    lateinit var locationProvider: LocationProvider
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         checkAllPermissions()
+        updateUI()
+    }
+
+    private fun updateUI() {
+        locationProvider = LocationProvider(this@MainActivity)
+
+        val latitude: Double = locationProvider.getLocationLatitude()
+        val longitude: Double = locationProvider.getLocationLongitude()
+
+        if(latitude != 0.0 || longitude != 0.0) {
+
+        } else {
+            Toast.makeText(
+                this@MainActivity,
+                "위도, 경도 정보를 가져올 수 없었습니다. 새로고침을 눌러주세요.",
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 
     private fun checkAllPermissions() {
