@@ -5,6 +5,8 @@ import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
@@ -17,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.airquality.databinding.ActivityMainBinding
+import java.io.IOException
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -159,5 +163,31 @@ class MainActivity : AppCompatActivity() {
             finish()
         })
         builder.create().show()
+    }
+
+    fun getCurrentAddress(latitude: Double, longitude: Double) : Address? {
+        val geocoder = Geocoder(this, Locale.getDefault())
+        val addresses : List<Address>?
+
+        addresses = try {
+            geocoder.getFromLocation(latitude, longitude, 7)
+        } catch (ioException: IOException) {
+            Toast.makeText(this, "지오코더 서비스 사용불가합니다.",
+            Toast.LENGTH_LONG).show()
+            return null
+        } catch (illegalArgumentException: IllegalArgumentException) {
+            Toast.makeText(this, "잘못될 위도, 경도 입니다.",
+            Toast.LENGTH_LONG).show()
+            return null
+        }
+
+        if (addresses == null || addresses.size == 0) {
+            Toast.makeText(this, "주소가 발견되지 않았습니다.",
+            Toast.LENGTH_LONG).show()
+            return null
+        }
+
+        val address: Address = addresses[0]
+        return address
     }
 }
